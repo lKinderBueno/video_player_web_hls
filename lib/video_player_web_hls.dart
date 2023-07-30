@@ -70,9 +70,11 @@ class VideoPlayerPluginHls extends VideoPlayerPlatform {
         uri = assetUrl;
         break;
       case DataSourceType.file:
-        return Future<int>.error(UnimplementedError('web implementation of video_player cannot play local files'));
+        return Future<int>.error(UnimplementedError(
+            'web implementation of video_player cannot play local files'));
       case DataSourceType.contentUri:
-        return Future<int>.error(UnimplementedError('web implementation of video_player cannot play content uri'));
+        return Future<int>.error(UnimplementedError(
+            'web implementation of video_player cannot play content uri'));
     }
 
     final VideoElement videoElement = VideoElement()
@@ -82,12 +84,15 @@ class VideoPlayerPluginHls extends VideoPlayerPlatform {
       ..style.width = '100%';
 
     videoElement.attributes['playsinline'] = 'true';
-    videoElement.attributes['oncontextmenu'] = 'return false;';
 
     // TODO(hterkelsen): Use initialization parameters once they are available
-    ui.platformViewRegistry.registerViewFactory('videoPlayer-$textureId', (int viewId) => videoElement);
+    ui.platformViewRegistry.registerViewFactory(
+        'videoPlayer-$textureId', (int viewId) => videoElement);
 
-    final VideoPlayer player = VideoPlayer(videoElement: videoElement, uri: uri, headers: headers ?? Map<String, String>());
+    final VideoPlayer player = VideoPlayer(
+        videoElement: videoElement,
+        uri: uri,
+        headers: headers ?? Map<String, String>());
 
     await player.initialize();
 
